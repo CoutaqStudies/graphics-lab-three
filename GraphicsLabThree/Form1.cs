@@ -11,19 +11,24 @@ using Coutaq;
 
 namespace GraphicsLabThree
 {
+    
+    //Сделал Меликов Михаил ИВТ-1 Вариант 8
     public partial class Form1 : Form
     {
         private const float LineSpacing = 1.5f;
         private const float Offset = 10;
-        private string[] strings = 
+        private readonly string[] Lines = 
         {"First line", "Second line", "Third line", "Fourth line", "Fifth line", 
             "Sixth line", "Seventh line", "Eighth line", "Ninth line", "Tenth line",
             "Eleventh line", "Twelfth line", "Thirteenth line", "Fourteenth line"};
+
+        private string[] strings;
         public Form1()
         {
             InitializeComponent();
             textBox1.MinimumSize = new Size(buttonSave.Height, buttonSave.Height);
             textBox1.Height = buttonSave.Height;
+            strings = Lines;
         }
         private void buttonSave_Click(object sender, EventArgs e)
         {
@@ -32,6 +37,7 @@ namespace GraphicsLabThree
 
         private void SaveToFile(string num)
         {
+            strings = Lines;
             var sfd = new SaveFileDialog {Filter = "Text Files | *.txt", DefaultExt = "txt"};
             if (sfd.ShowDialog() != DialogResult.OK) return;
             var output = strings.Aggregate("", (current, line) => current + (line + "\n"));
@@ -63,7 +69,6 @@ namespace GraphicsLabThree
             if (ofd.ShowDialog() != DialogResult.OK) return;
             string input = FileExpert.ReadFromAbsolutePath(ofd.FileName);
             strings = input.Trim().Split('\n');
-            
             var g = pictureBox1.CreateGraphics();
             DrawText(g);
           
